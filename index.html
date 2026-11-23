@@ -4,7 +4,9 @@
 <meta charset="utf-8">
 <!-- tema escuro desde o primeiro instante (antes de qualquer estilo), sem piscar para o claro -->
 <script>try{localStorage.removeItem("dom:theme")}catch(e){}document.documentElement.setAttribute("data-dom-tema","escuro");</script>
-<meta name="color-scheme" content="dark light">
+<!-- avisa aos navegadores (ex.: Samsung Internet com "modo escuro") que o site já é escuro, para não recolorirem a página -->
+<meta name="color-scheme" content="dark">
+<meta name="supported-color-schemes" content="dark">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Dom Cervejeiro · Cardápio</title>
 <meta name="description" content="Cardápio, pedidos, reservas e horários da Dom Cervejeiro Cervejaria Artesanal, em Seara/SC.">
@@ -132,7 +134,9 @@ a{color:inherit;text-decoration:none}
 /* ---------- Banners ---------- */
 .banners{display:flex;gap:0;overflow-x:auto;scroll-snap-type:x mandatory;margin:16px 16px 0;padding:0;border-radius:20px;scrollbar-width:none;overscroll-behavior-x:contain;isolation:isolate}
 .banners::-webkit-scrollbar{display:none}
-.bn{scroll-snap-align:start;scroll-snap-stop:always;flex:0 0 100%;height:178px;border-radius:20px;position:relative;overflow:hidden;background:#0b0b0b;color:#fff;display:flex;flex-direction:column;justify-content:center;padding:18px 20px;isolation:isolate}
+/* altura mínima (não fixa): com a fonte do celular aumentada, o banner cresce em vez de cortar o texto;
+   todos os banners ficam da altura do maior, porque o carrossel estica os itens por igual */
+.bn{scroll-snap-align:start;scroll-snap-stop:always;flex:0 0 100%;min-height:178px;border-radius:20px;position:relative;overflow:hidden;background:#0b0b0b;color:#fff;display:flex;flex-direction:column;justify-content:center;padding:18px 20px;isolation:isolate}
 .bn > img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
 .bn::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(8,8,8,.92) 0%,rgba(8,8,8,.75) 45%,rgba(8,8,8,.05) 100%)}
 .bn.brand::before{display:none}
@@ -164,11 +168,11 @@ a{color:inherit;text-decoration:none}
 @keyframes laL{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 @keyframes laT{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .bn.brand p{font-size:12px;letter-spacing:.22em;color:#bdb7ad;text-transform:uppercase;margin-top:2px}
-.bn .tag{align-self:flex-start;margin-bottom:8px}
-.bn h3{font-family:Archivo;font-weight:800;font-size:22px;line-height:1.08;max-width:62%}
+.bn .tag{align-self:flex-start;margin-bottom:7px}
+.bn h3{font-family:Archivo;font-weight:800;font-size:22px;line-height:1.08;max-width:74%}
 .bn h3 em{font-style:normal;color:var(--orange)}
-.bn p.s{font-size:13px;color:#d6d0c6;margin-top:6px;max-width:58%}
-.bn .go{margin-top:12px;align-self:flex-start;height:36px;padding:0 14px;border-radius:99px;background:var(--orange);color:#fff;font-weight:700;font-size:13px;display:inline-flex;align-items:center;gap:6px}
+.bn p.s{font-size:13px;color:#d6d0c6;margin-top:6px;max-width:68%}
+.bn .go{margin-top:10px;align-self:flex-start;height:36px;padding:0 14px;border-radius:99px;background:var(--orange);color:#fff;font-weight:700;font-size:13px;display:inline-flex;align-items:center;gap:6px}
 .dots{display:flex;justify-content:center;gap:6px;padding:8px 0 0}
 .dots i{width:6px;height:6px;border-radius:99px;background:var(--line);transition:.25s}
 .dots i.on{width:20px;background:var(--orange)}
@@ -430,6 +434,9 @@ select.inp{appearance:none;-webkit-appearance:none;background-image:url("data:im
 .toast.on{transform:translate(-50%,0);opacity:1}
 .toast .ic{color:var(--green)}
 
+/* o site tem tema escuro próprio: navegadores que olham essa regra (Samsung Internet) não aplicam o "modo escuro" deles */
+@media (prefers-color-scheme:dark){ :root:not([data-dom-tema="claro"]){color-scheme:dark} }
+
 /* elementos só do computador ficam escondidos no celular */
 .dnav,.dside,.rside{display:none}
 
@@ -495,7 +502,7 @@ select.inp{appearance:none;-webkit-appearance:none;background-image:url("data:im
   .quick{display:none}                        /* atalhos já estão na navegação do topo */
   .search{margin-top:16px}
   .banners{margin-top:16px}
-  .bn{height:270px;padding:28px 40px}
+  .bn{min-height:270px;padding:28px 40px}
   .bn h3{font-size:36px;max-width:55%}
   .bn p.s{font-size:16px;max-width:48%;margin-top:10px}
   .bn .go{height:42px;padding:0 20px;font-size:14px;margin-top:18px}
