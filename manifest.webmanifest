@@ -1,0 +1,16 @@
+{
+  "name": "Dom Cervejeiro · Cardápio",
+  "short_name": "Dom Cervejeiro",
+  "description": "Cardápio, pedidos, reservas e horários da Dom Cervejeiro Cervejaria Artesanal, em Seara/SC.",
+  "lang": "pt-BR",
+  "start_url": "./#cardapio",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0f0f0f",
+  "theme_color": "#0b0b0b",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
