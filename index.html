@@ -801,7 +801,7 @@ select.inp{appearance:none;-webkit-appearance:none;background-image:url("data:im
       </div>
       <a class="card contact" id="waContact" target="_blank" rel="noopener">
         <span class="ci"><svg class="ic"><use href="#i-wa"/></svg></span>
-        <span class="tx"><b>WhatsApp</b><span>(49) 99155-5992</span></span>
+        <span class="tx"><b>WhatsApp</b><span>(49) 99160-0159</span></span>
         <svg class="ic sm"><use href="#i-ext"/></svg>
       </a>
       <a class="card contact" href="https://www.instagram.com/domcervejeiroseara/" target="_blank" rel="noopener">
@@ -830,7 +830,8 @@ select.inp{appearance:none;-webkit-appearance:none;background-image:url("data:im
 /* =========================================================
    CONFIGURAÇÃO — edite aqui
    ========================================================= */
-const WHATSAPP = "5549991555992";
+const WHATSAPP = "5549991600159";                         // pedidos e contato — (49) 99160-0159
+const WHATSAPP_RESERVAS = WHATSAPP;                       // reservas de mesa (mesmo número; troque aqui se um dia for outro)
 const DELIVERY_FEE = 10;                                  // taxa fixa de entrega (R$)
 const ETA = { entrega:[60, 75], retirada:[30, 45] };      // tempo estimado em minutos
 /* horário de ENTREGA (separado do horário da casa) — igual ao cadastrado na Saipos. null = sem entrega no dia */
@@ -1986,7 +1987,7 @@ $("#rSend").onclick = () => {
     `*Pessoas:* ${R.people}`,
     note ? `*Observação:* ${note}` : null,
   ].filter(Boolean).join("\n");
-  const url = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`;
+  const url = `https://wa.me/${WHATSAPP_RESERVAS}?text=${encodeURIComponent(msg)}`;
   const btn = $("#rSend"); btn.disabled = true; setTimeout(() => btn.disabled = false, 1500);   // evita abrir o WhatsApp duas vezes
   openWA(url);
 };
