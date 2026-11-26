@@ -775,7 +775,7 @@ select.inp{appearance:none;-webkit-appearance:none;background-image:url("data:im
       </div>
       <div class="sendwrap rsend">
         <button class="btn wa block" id="rSend"><svg class="ic sm"><use href="#i-wa"/></svg>Enviar reserva pelo WhatsApp</button>
-        <p class="hint" style="text-align:center;margin-top:10px">A reserva só fica garantida depois da nossa confirmação.</p>
+        <p class="hint" style="text-align:center;margin-top:10px">O WhatsApp abre com a reserva pronta: é só tocar em <b>Enviar</b>.<br>A reserva só fica garantida depois da nossa confirmação.</p>
       </div>
     </section>
 
@@ -1555,14 +1555,14 @@ function renderPedido(){
   if (orderDone){
     v.innerHTML = `
       <div class="done">
-        <div class="circ">${icon("check")}</div>
-        <h1>Pedido enviado!</h1>
-        <p>Finalize a conversa no WhatsApp. A Dom confirma o pedido por lá.</p>
+        <div class="circ">${icon("wa")}</div>
+        <h1>Falta só um passo!</h1>
+        <p>Abrimos o WhatsApp com o seu pedido pronto. <b>Toque em Enviar</b> lá no WhatsApp para a Dom receber. O pedido é confirmado quando a Dom responder.</p>
         <span class="num">Pedido #${orderDone.num}</span>
       </div>
       <div style="padding:0 16px"><div class="eta">${icon("clock")}<div><b>${esc(orderDone.eta)}</b>Total: ${brl(orderDone.total)} · ${esc(orderDone.pay)}</div></div></div>
       <div class="actions">
-        <a class="btn wa block" href="${orderDone.url}" target="_blank" rel="noopener">${icon("wa","sm")}Abrir o WhatsApp de novo</a>
+        <a class="btn wa block" href="${orderDone.url}" target="_blank" rel="noopener">${icon("wa","sm")}Abrir o WhatsApp para enviar</a>
         <button class="btn ghost block" id="newOrder">Fazer outro pedido</button>
       </div>`;
     $("#newOrder").onclick = () => { orderDone = null; location.hash = "#cardapio"; };
@@ -1708,7 +1708,7 @@ function renderPedido(){
         <button class="btn ghost" id="ckBack" aria-label="Voltar">${icon("back","sm")}</button>
         <button class="btn wa" id="sendOrder">${icon("wa","sm")}Enviar pelo WhatsApp</button>
       </div>
-      <p class="hint" style="text-align:center;margin-top:10px">Seus dados ficam salvos só neste aparelho para o próximo pedido.</p></div>`;
+      <p class="hint" style="text-align:center;margin-top:10px">O WhatsApp abre com o pedido pronto: é só tocar em <b>Enviar</b>.<br>Seus dados ficam salvos só neste aparelho para o próximo pedido.</p></div>`;
 
   v.innerHTML = `
     <div class="page-h"><h1>Meu pedido</h1><p>${["Revise os itens e escolha como receber.","Escolha como você vai pagar.","Confira tudo e envie pelo WhatsApp."][ckStep - 1]}</p></div>
@@ -1990,13 +1990,16 @@ $("#rSend").onclick = () => {
   const url = `https://wa.me/${WHATSAPP_RESERVAS}?text=${encodeURIComponent(msg)}`;
   const btn = $("#rSend"); btn.disabled = true; setTimeout(() => btn.disabled = false, 1500);   // evita abrir o WhatsApp duas vezes
   openWA(url);
+  toast("Toque em Enviar no WhatsApp para concluir");   // a reserva só chega quando o cliente envia a mensagem
 };
 
 /* =========================================================
    LOCAL
    ========================================================= */
 $("#mapsBtn").href = MAPS_URL;
-$("#waContact").href = `https://wa.me/${WHATSAPP}`;
+/* contato direto: abre o WhatsApp com uma saudação pronta */
+const WA_CONTATO_MSG = "Olá! Gostaria de algumas informações sobre a Dom Cervejeiro.";
+$("#waContact").href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(WA_CONTATO_MSG)}`;
 let mapLoaded = false;
 
 /* =========================================================
